@@ -25,13 +25,22 @@ class UploadHandler(RequestHandler):
             print(s)
             self.write(s)
             # produce_message(message)
+            message = {}
             
             # upload image to s3
-            image_name = image_upload(image)
+            image_url = image_upload(image)
+            user_id = 'zhidazhang'
+            
+            # construct message
+            message["image_url"] = image_url
+            message["user_id"] = user_id
+            message_json = json.dumps(message)
+
+
             
             # Kafka producer produce message
-            if image_name is not None:
-                upload_produce_message(image_name)
+            if image_url is not None:
+                upload_produce_message(message_json)
             
         else:
             s = "image not received"
