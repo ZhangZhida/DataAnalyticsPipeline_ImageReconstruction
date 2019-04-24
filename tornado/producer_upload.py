@@ -9,7 +9,7 @@ def delivery_report(err, msg):
     if err is not None:
         print('Message delivery failed: {}'.format(err))
     else:
-        print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
+        print('[Produce] Kafka message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
 def upload_produce_message(image_name):
     p = Producer({'bootstrap.servers': 'localhost:9092'})

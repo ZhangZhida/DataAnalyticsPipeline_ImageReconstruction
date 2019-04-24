@@ -1,0 +1,7 @@
+tornado>=6.0.2
+boto3==1.9.134
+keras>=2.2.4
+numpy>=1.16.2
+opencv-python>=4.1.0.25
+scipy>=1.2.1
+tensorflow>=1.13.1
