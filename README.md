@@ -18,7 +18,7 @@
 
 -3. [TODO] Start a new terminal, go to PROJECT_FOLDER/model_service, and RUN >> python model_service.py, to start our model service.
 
--4. Start a new terminal, go to PROJECT_FOLDER/test_frontend, and RUN >> python test.py, to fake a HTTP POST request with the image data from the frontend to backend, and tornado will process the POST request.
+-4. Start a new terminal, go to PROJECT_FOLDER/test, and RUN >> python test_frontend.py, to fake a HTTP POST request with the image data from the frontend to backend, and tornado will process the POST request.
 
 ## Close up 
 
