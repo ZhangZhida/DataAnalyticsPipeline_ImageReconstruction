@@ -1,16 +1,30 @@
 import MySQLdb
 import datetime
 import time
+import configparser
+
 
 class MysqlClient:
     def __init__(self):
+        config = configparser.ConfigParser()
+        config.read("../config.ini")
+        host = config['MYSQL']['HOST']
+        user = config['MYSQL']['USER']
+        passwd = config['MYSQL']['PASSWD']
+        db = config['MYSQL']['DB']
+        print('host = ', host)
+        print('user = ', user)
+        print('passwd = ', "***")
+        print('db = ', db)
+        
+
         self.connection = MySQLdb.connect(
-            host="image-reconstruct.cbd1ayvksyji.us-east-1.rds.amazonaws.com",
-            user="root",
-            passwd="Zd822511",
-            db="image_reconstruct"
+            host=host,
+            user=user,
+            passwd=passwd,
+            db=db
         )
-        self.connection.cursor().execute('use image_reconstruct')
+        self.connection.cursor().execute('use ' + db)
 
     def get_upload_history(self):
         cursor = self.connection.cursor()
