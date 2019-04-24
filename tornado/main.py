@@ -26,7 +26,7 @@ class UploadHandler(RequestHandler):
             self.write(s)
             # produce_message(message)
             
-            # upload image to s3
+            # upload image to s3 and return output name in s3
             image_name = image_upload(image)
             
             # Kafka producer produce message
