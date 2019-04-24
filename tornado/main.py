@@ -26,8 +26,8 @@ class UploadHandler(RequestHandler):
             self.write(s)
             # produce_message(message)
             message = {}
-            
-            # upload image to s3
+
+            # upload image to s3 and return output url in s3
             image_url = image_upload(image)
             user_id = 'zhidazhang'
             
@@ -36,8 +36,6 @@ class UploadHandler(RequestHandler):
             message["user_id"] = user_id
             message_json = json.dumps(message)
 
-
-            
             # Kafka producer produce message
             if image_url is not None:
                 upload_produce_message(message_json)
