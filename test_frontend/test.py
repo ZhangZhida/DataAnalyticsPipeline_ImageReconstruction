@@ -10,7 +10,7 @@ if __name__ == "__main__":
     """
     Convert image to string, using opencv 
     """
-    image = cv2.imread('/home/zhida/Pictures/1__NQN6_YnxS29m8vFzWYlEg.png')
+    image = cv2.imread('/Users/raleighliu/Desktop/4995_009 DA Pipeline/homework/project/DataAnalyticsPipeline_ImageRepair/1.png')
     img_str = cv2.imencode('.png', image)[1].tostring()
     
 
