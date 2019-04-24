@@ -15,6 +15,7 @@
 -1. Start a terminal, go to PROJECT_FOLDER/tornado, and RUN >> python main.py, to start our tornado web service.
 
 -2. Start a new terminal, go to PROJECT_FOLDER/database_service, and RUN >> python history.py, to start our history table service.
+
 -3. [TODO] Start a new terminal, go to PROJECT_FOLDER/model_service, and RUN >> python model_service.py, to start our model service.
 
 -4. Start a new terminal, go to PROJECT_FOLDER/test_frontend, and RUN >> python test.py, to fake a HTTP POST request with the image data from the frontend to backend, and tornado will process the POST request.
