@@ -12,7 +12,7 @@ def delivery_report(err, msg):
         print('[Produce] Kafka message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
 def upload_produce_message(image_name):
-    p = Producer({'bootstrap.servers': 'localhost:9092'})
+    p = Producer({'bootstrap.servers': '35.230.175.86:9092'})
     # p.produce('TutorialTopic', image.encode('utf-8'), callback=delivery_report)
     p.produce('TutorialTopic', image_name.encode('utf-8'), callback=delivery_report)
     

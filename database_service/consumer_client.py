@@ -14,7 +14,7 @@ class ConsumerClient:
     def __init__(self):
 
         self.c = Consumer({
-            'bootstrap.servers': 'localhost:9092',
+            'bootstrap.servers': '35.230.175.86:9092', # GCP instance running Kafka server
             'group.id': 'mygroup',
             'auto.offset.reset': 'earliest'
         })

@@ -2,4 +2,5 @@ config.ini
 *__pycache__
 .idea*
 .vscode*
+*.png
 *.pyc
