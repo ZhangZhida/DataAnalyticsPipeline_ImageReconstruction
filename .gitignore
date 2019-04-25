@@ -3,3 +3,4 @@ config.ini
 .idea*
 .vscode*
 *.png
+*.pyc

@@ -11,17 +11,17 @@ def image_upload(img_str):
     img2 = cv2.imdecode(nparr, cv2.CV_32FC4)
     
     # save image file to local computer
-    save_filename = 'test.png'
+    save_filename = 'test_image.jpeg'
     cv2.imwrite(save_filename, img2)
 
     # upload image to S3
-    bucketName = "dap-final-project-vince"
+    bucketName = "lehuitest"
     Key = save_filename                         # filename on local computer
     outputName = save_filename   # filename on S3
 
     s3 = boto3.client('s3')
     try:
-        s3.upload_file(Key,bucketName,outputName)
+        s3.upload_file(Key, bucketName,outputName)
         print("image uploaded to S3 successfully")
         image_url = construct_image_url(bucketName, outputName)
         return image_url
