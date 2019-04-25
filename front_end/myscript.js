@@ -1,7 +1,5 @@
-
-
 var imageLoader = document.getElementById('imageLoader');
-  imageLoader.addEventListener('change', handleImage, false);
+imageLoader.addEventListener('change', handleImage, false);
 var canvas_upload = document.getElementById('upload_pic');
 var ctx_upload = canvas_upload.getContext('2d');
 

@@ -4,7 +4,7 @@ from tornado.ioloop import IOLoop
 import json
 from producer_upload import upload_produce_message
 from image_upload import image_upload
-from model_service.model_service import predict
+# from model_service.model_service import predict
 
 class ChartHandler(RequestHandler):
     pass
@@ -13,14 +13,34 @@ class RemoveHandler(RequestHandler):
     pass
 class UploadHandler(RequestHandler):
     
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', "POST, GET, OPTIONS")
+        self.set_header('Content-Type', 'text/html')
+        self.set_header("Access-Control-Allow-Credentials", 'true')
+
     def get(self):
+        
+        self.set_default_headers()
         s = "Please use POST request on /upload"
+        # s = {"message": s}
+        # s = json.dumps(s)
+        self.set_status(200)
         self.write(s)
         # result_url = predict(image_url,mask_url)
         # self.render("../template/result.html",result = result_url)
     
+    def options(self):
+        self.set_default_headers()
+        self.set_status(204)
+        self.finish()
+
     def post(self):
-        image = self.request.body['image']
+        data = json.loads(self.request.body)
+        
+        print("request = ", data)
+        image = self.request.body['original']
         mask = self.request.body['mask']
 
         if image is not None:
@@ -52,7 +72,9 @@ class UploadHandler(RequestHandler):
             print(s)
 
         result_url = predict(image_url,mask_url)
-        self.render("../template/result.html",result = result_url)
+        # self.render("../template/result.html",result = result_url)
+
+        # return to frontend
 
 
 if __name__ == "__main__":

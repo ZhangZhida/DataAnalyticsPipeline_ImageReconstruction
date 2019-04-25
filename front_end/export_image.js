@@ -34,7 +34,37 @@ function geturl() {
 	var canvas2 = document.getElementById('draw');
 	var dataURL2 = canvas2.toDataURL();
 	console.log(dataURL2);
+	return (dataURL, dataURL2)
 }
+
+function send_post_to_server() {
+	var dataURL, dataURL2 = geturl()
+	const xhttp = new XMLHttpRequest();
+	
+	const url = "http://localhost:7777/upload";
+	xhttp.open("POST", url, true);
+	// http.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	// xhttp.setRequestHeader("Access-Control-Allow-Headers", '*');
+	// xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+	// xhttp.setRequestHeader('Content-type', 'text/html')
+	// xhttp.setRequestHeader('Access-Control-Allow-Methods', "POST, GET, OPTIONS")
+
+	data = {
+		'original': dataURL,
+		'mask': dataURL2
+	}
+
+	xhttp.send(JSON.stringify(data));
+
+	
+
+	xhttp.onreadystatechange = (e) => {
+		console.log(xhttp.responseText)
+	}
+}
+
+
+
 
 
 
