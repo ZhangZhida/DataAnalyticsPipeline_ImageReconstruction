@@ -4,22 +4,25 @@ from tornado.ioloop import IOLoop
 import json
 from producer_upload import upload_produce_message
 from image_upload import image_upload
-
+from model_service.model_service import predict
 
 class ChartHandler(RequestHandler):
     pass
 
 class RemoveHandler(RequestHandler):
     pass
-
 class UploadHandler(RequestHandler):
     
     def get(self):
         s = "Please use POST request on /upload"
         self.write(s)
+        # result_url = predict(image_url,mask_url)
+        # self.render("../template/result.html",result = result_url)
     
     def post(self):
-        image = self.request.body
+        image = self.request.body['image']
+        mask = self.request.body['mask']
+
         if image is not None:
             s = "image received"
             print(s)
@@ -29,12 +32,15 @@ class UploadHandler(RequestHandler):
 
             # upload image to s3 and return output url in s3
             image_url = image_upload(image)
-            user_id = 'zhidazhang'
+            mask_url = image_upload(mask)
+
+            user_id = 'liulehui'
             
             # construct message
             message["image_url"] = image_url
             message["user_id"] = user_id
             message_json = json.dumps(message)
+
 
             # Kafka producer produce message
             if image_url is not None:
@@ -44,6 +50,9 @@ class UploadHandler(RequestHandler):
             s = "image not received"
             self.write(s)
             print(s)
+
+        result_url = predict(image_url,mask_url)
+        self.render("../template/result.html",result = result_url)
 
 
 if __name__ == "__main__":

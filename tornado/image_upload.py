@@ -11,7 +11,7 @@ def image_upload(img_str):
     img2 = cv2.imdecode(nparr, cv2.CV_32FC4)
     
     # save image file to local computer
-    save_filename = 'test.png'
+    save_filename = 'test_image.jpeg'
     cv2.imwrite(save_filename, img2)
 
     # upload image to S3

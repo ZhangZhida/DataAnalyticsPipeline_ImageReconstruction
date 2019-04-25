@@ -1,26 +1,23 @@
-from consumer_client import ConsumerClient
-from db_client import MysqlClient
+from consumer_client_predict import ConsumerClient
 import json
+import numpy as np
+import cv2
+import tornado.gen
+import urllib.request
+import boto3
+# def saveimage(url,savepath = './001.jpeg'):
+#     urllib.request.urlretrieve(url, savepath)
+#     return
 
-if __name__ == "__main__":
-    c = ConsumerClient()
-    mysql = MysqlClient()
+def construct_image_url(bucketName, outputName):
+    return "https://s3.amazonaws.com/{bucketName}/{outputName}".format(
+        bucketName=bucketName, outputName=outputName)
 
-    while True:
-        msg = c.consume_message()
+@tornado.gen.coroutine
+def predict(image_url,mask_url):
 
-        # decode message and convert it to json object
-        msg = msg.decode('utf-8')
-        msg = json.loads(msg)
+    # first we need to download it
 
-        user_id = msg['user_id']
-        image_url = msg['image_url']
-
-        print("user_id = ", user_id)
-        print("image_url = ", image_url)
-
-        # insert image to database
-        if image_url is not None:
-            mysql.insert_image(user_id=user_id, image_url=image_url)
-
-        mysql.get_upload_history()
+    # then use script to get the result.jpg
+    # then upload the result.jpg
+    return result_url
