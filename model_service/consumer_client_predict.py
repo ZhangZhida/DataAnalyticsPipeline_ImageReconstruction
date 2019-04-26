@@ -15,8 +15,10 @@ import numpy as np
 class ConsumerClient:
     def __init__(self):
 
+        localhost = 'localhost'
+        gcp_host = '35.230.175.86'
         self.c = Consumer({
-            'bootstrap.servers': 'localhost:9092',
+            'bootstrap.servers': localhost +':9092',
             'group.id': 'mygroup',
             'auto.offset.reset': 'latest'
         })

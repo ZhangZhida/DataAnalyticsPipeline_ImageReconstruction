@@ -29,20 +29,25 @@ download.href = "data:application/octet-stream;base64," + btoa(JSON.stringify(do
 function geturl() {
 	var canvas1 = document.getElementById('upload_pic');
 	var dataURL = canvas1.toDataURL();
-	console.log(dataURL);
+	// console.log(dataURL);
 
 	var canvas2 = document.getElementById('draw');
 	var dataURL2 = canvas2.toDataURL();
-	console.log(dataURL2);
-	return (dataURL, dataURL2)
+	// console.log(dataURL2);
+	return [dataURL, dataURL2]
 }
 
 function send_post_to_server() {
-	var dataURL, dataURL2 = geturl()
+	var urls = geturl()
+	var dataURL = urls[0]
+	var dataURL2 = urls[1]
+	console.log('dataUrl', dataURL);
+	console.log('dataUrl2', dataURL2);
+
 	const xhttp = new XMLHttpRequest();
 	
 	const url = "http://localhost:7777/upload";
-	xhttp.open("POST", url, true);
+	xhttp.open("POST", url);
 	// http.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	// xhttp.setRequestHeader("Access-Control-Allow-Headers", '*');
 	// xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
@@ -50,11 +55,14 @@ function send_post_to_server() {
 	// xhttp.setRequestHeader('Access-Control-Allow-Methods', "POST, GET, OPTIONS")
 
 	data = {
-		'original': dataURL,
-		'mask': dataURL2
+		"original": dataURL,
+		"mask": dataURL2
 	}
 
-	xhttp.send(JSON.stringify(data));
+	data_json = JSON.stringify(data)
+	console.log('data = ', data_json)
+
+	xhttp.send(data_json);
 
 	
 

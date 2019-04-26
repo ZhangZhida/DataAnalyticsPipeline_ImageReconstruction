@@ -1,6 +1,7 @@
 from tornado.web import Application
 from tornado.web import RequestHandler
 from tornado.ioloop import IOLoop
+from tornado.escape import json_decode
 import json
 from producer_upload import upload_produce_message
 from image_upload import image_upload
@@ -38,10 +39,12 @@ class UploadHandler(RequestHandler):
 
     def post(self):
         data = json.loads(self.request.body)
+        # data = json_decode(self.request.body)
         
         print("request = ", data)
-        image = self.request.body['original']
-        mask = self.request.body['mask']
+        
+        mask = data['mask']
+        image = data['original']
 
         if image is not None:
             s = "image received"
@@ -51,8 +54,8 @@ class UploadHandler(RequestHandler):
             message = {}
 
             # upload image to s3 and return output url in s3
-            image_url = image_upload(image)
-            mask_url = image_upload(mask)
+            image_url = image_upload(image, 'test_image.png')
+            mask_url = image_upload(mask, 'test_mask.png')
 
             user_id = 'liulehui'
             
