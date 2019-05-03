@@ -6,99 +6,108 @@
     }
 
     .container{
-		position: relative; 
-	}
+		  position: relative; 
+	  }
 
-	.container canvas{
-		position: absolute;
-		left: 0;
-		top: 0;
-	}
+	  .container canvas{
+  	 	position: absolute;
+  		left: 0;
+  		top: 0;
+	  }
+
+    header {
+      background-color: #666;
+      padding: 20px;
+      text-align: center;
+      font-size: 15px;
+      color: white;
+      height: 60px;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 45%;
+      padding: 15px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+    @media screen and (max-width:600px) {
+      .column {
+        width: 100%;
+    }
+}
   </style>
 
 
 <body>
+<header>
   <h1>Fix your photo</h1>
+</header>
 
-<label>Select Image:</label><br/>
-<input type="file" id="imageLoader" name="imageLoader"/>
+<div class="row">
+
+  <div class="column">
+    <h2>Select Your Image</h2>
+    
+    <input type="file" id="imageLoader" name="imageLoader"/>
 
 
-<input type="button" id="fix" name="fix" value = "Go!" onclick="geturl();"/>
+    <input type="button" id="fix" name="fix" value = "Go!" onclick="geturl();"/>
 
 
 
-<div class="container">
-	<canvas id="upload_pic" width="500" height="500"></canvas> 
-	<canvas id="draw" width="500" height="500"></canvas>
+    <div class="container">
+      <canvas id="upload_pic" width="500" height="500"></canvas> 
+      <canvas id="draw" width="500" height="500"></canvas>
+    </div>
+  </div>
+
+
+  <div class="column">
+    <h2>Output Image</h2>
+    
+ 
+    <canvas id="output_pic" width="500" height="500"></canvas> 
+
+    <script type="text/javascript">
+      var canvas_output = document.getElementById("output_pic");
+      var ctx1 = canvas_output.getContext("2d");
+
+      var image = new Image();
+      image.onload = function() {
+        ctx1.drawImage(image, 0, 0);
+      };
+      image.src = "";
+
+
+      
+    </script>
+
+
+  
+
+  </div>
+
+
 </div>
-
-
-
-
-
-
-<script src="myscript.js"  type="text/javascript" onsubmit="">
- </script> 
-
-
-<script src="export_image.js"  type="text/javascript">
- </script> 
-
-<script>
-  var canvas = document.querySelector('#draw'); // define a canvas object(ctx)
-  // could be 3d, if you want to make a video game
-  var ctx = canvas.getContext('2d');
-  //canvas.width = 300
-  //canvas.height = 300
-  //canvas.width = window.innerWidth; // same width & height using the window property 
-  //canvas.height = window.innerHeight;
   
-  // shape the line 
-  ctx.lineJoin = 'round';  //Sets or returns the type of corner created, when two lines meet
-  ctx.lineCap = 'round'; //Sets or returns the style of the end caps for a line
-  ctx.lineWidth = 20; //current line width
-  ctx.strokeStyle = 'black'; //Sets or returns the color, gradient, or pattern used for strokes
-
-  // the draw functionality 
-  // establishing four event listeners. We need to know when the mouse is pressed down, up, moved, or clicked off the page. 
-  
-  let isDrawing = false; // track our mouse movements, we need a boolean variable. 
-  let lastX = 0;
-  let lastY = 0;
-
-  // pass through an event listener
-  function draw(e) {
-    // stop the function if they are not mouse down
-    if(!isDrawing) return;
-    //listen for mouse move event
-
-    console.log(e);
-
-    ctx.beginPath(); //Begins a path, or resets the current path
-    ctx.moveTo(lastX, lastY); //Moves the path to the specified point in the canvas, without creating a line
-    ctx.lineTo(e.offsetX, e.offsetY); //Adds a new point and creates a line to that point from the last specified point in the canvas
-    ctx.stroke(); //Actually draws the path you have defined
-    [lastX, lastY] = [e.offsetX, e.offsetY]; // return the xy coordinate of the mouse pointer 
-    console.log(lastX)
-    console.log(lastY)
-    console.log(ctx.lineWidth)
-  }
-
-  canvas.addEventListener('mousedown', (e) => { //occurs when press the mouse
-    isDrawing = true;
-    [lastX, lastY] = [e.offsetX, e.offsetY]; //returns the x-coordinate of the mouse pointer, relative to the target element.
-  });
-  // element.addEventListener(event, function, useCapture)
-  canvas.addEventListener('mousemove', draw);   //occurs whenever the mouse is moving (no click)
-  											// as long as move the mouse, we will run draw function 
 
 
-  canvas.addEventListener('mouseup', () => isDrawing = false); //occurs when release the mouse 
-  canvas.addEventListener('mouseout', () => isDrawing = false); // (no click) occurs when the mouse pointer leaves the selected element.
-</script>
 
 
+
+
+
+<script src="myscript.js"  type="text/javascript" onsubmit="" />
+ </script> 
 
 
 
