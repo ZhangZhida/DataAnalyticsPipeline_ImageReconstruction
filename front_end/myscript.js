@@ -3,7 +3,8 @@ imageLoader.addEventListener('change', handleImage, false);
 var canvas_upload = document.getElementById('upload_pic');
 var ctx_upload = canvas_upload.getContext('2d');
 var maxlength = 0
-
+var new_width = 0
+var new_height = 0
 
 
 
@@ -97,14 +98,14 @@ function painting(target_width, target_height){
 function geturl() {
 
 	var canvas1 = document.getElementById('upload_pic');
-	var dataURL = canvas1.toDataURL();
+	var dataURL = canvas1.toDataURL('image/png', 1.0);
     console.log(dataURL)
   
 
 	var canvas2 = document.getElementById('draw');
     // canvas2.width = canvas1.width
     // canvas2.height = canvas1.height  
-	var dataURL2 = canvas2.toDataURL();
+	var dataURL2 = canvas2.toDataURL('image/png', 1.0);
 	console.log(dataURL2);
     return [dataURL, dataURL2];
 
@@ -134,14 +135,32 @@ function send_post_to_server() {
     }
 
     data_json = JSON.stringify(data)
-    console.log('data = ', data_json)
+    // console.log('data = ', data_json)
 
     xhttp.send(data_json);
 
     
 
     xhttp.onreadystatechange = (e) => {
-        console.log(xhttp.responseText)
+        console.log("return = ", xhttp.responseText)
+        result_image_source = xhttp.responseText
+        var canvas3 = document.getElementById('output_pic');
+        var canvas1 = document.getElementById('draw')
+        canvas3.width = canvas1.width
+        canvas3.height = canvas1.height
+        ctx1 = canvas3.getContext("2d")
+        // var img = new Image()
+        // image_output.source = "https://s3.amazonaws.com/lehuitest/result.jpg"
+        // image.source = result_image_source
+        
+        // ctx1.drawImage(image, 0, 0);
+        var image_output = new Image();
+        image_output.onload = function() {
+            ctx1.drawImage(image_output, 0, 0, width=new_width, height=new_height);
+        };
+        image_output.src = result_image_source;
+        
+        
     }
 }
 
