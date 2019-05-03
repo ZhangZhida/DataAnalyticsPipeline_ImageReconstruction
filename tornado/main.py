@@ -41,7 +41,7 @@ class UploadHandler(RequestHandler):
         data = json.loads(self.request.body)
         # data = json_decode(self.request.body)
         
-        print("request = ", data)
+        # print("request = ", data)
         
         mask = data['mask']
         image = data['original']
@@ -54,8 +54,9 @@ class UploadHandler(RequestHandler):
             message = {}
 
             # upload image to s3 and return output url in s3
-            image_url = image_upload(image, 'test_image.jpg')
             mask_url = image_upload(mask, 'test_mask.jpg')
+            image_url = image_upload(image, 'test_image.jpg')
+            
 
             user_id = 'liulehui'
             

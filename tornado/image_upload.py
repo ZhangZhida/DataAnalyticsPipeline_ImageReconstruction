@@ -24,10 +24,20 @@ def get_image_from_dataurl(dataUrl, save_filename):
 		f.write(base64.decodestring(dataUrl.split(',')[1].encode()))
 
 	# convert png to jpg file
-	im = Image.open(tmp_png_save_filename)
-	im.save(save_filename)
-
+	# im = Image.open(tmp_png_save_filename)
 	
+	png = Image.open(tmp_png_save_filename).convert('RGBA')
+	background = Image.new('RGBA', png.size, (255,255,255))
+
+	alpha_composite = Image.alpha_composite(background, png)
+	alpha_composite = alpha_composite.convert("RGB")
+	alpha_composite.save(save_filename, 'JPEG', quality=100)
+
+
+	# im = im.convert('RGB')
+	# im.save(save_filename)
+
+
 	# return img
 
 
