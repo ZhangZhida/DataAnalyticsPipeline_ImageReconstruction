@@ -19,8 +19,15 @@ function handleImage(e){ //e = event is a string, in this case = 'change'
             //resize the upload picture to fit the canvas size
          
             maxlength = Math.max(img.width, img.height)
-            var factor = Math.ceil(maxlength/500)
-            ctx_upload.drawImage(img,x=0,y=0,width=img.width/factor,height=img.height/factor);
+            var factor = Math.ceil(maxlength/800)
+
+            new_width = img.width/factor
+            new_height = img.height/factor
+
+            canvas_upload.width = new_width
+            canvas_upload.height = new_height
+
+            ctx_upload.drawImage(img,x=0,y=0,width=new_width,height=new_height);
            
             // painting function 
             painting(img.width/factor, img.height/factor)
@@ -95,8 +102,8 @@ function geturl() {
   
 
 	var canvas2 = document.getElementById('draw');
-    canvas2.width = canvas1.width
-    canvas2.height = canvas1.height
+    // canvas2.width = canvas1.width
+    // canvas2.height = canvas1.height  
 	var dataURL2 = canvas2.toDataURL();
 	console.log(dataURL2);
     return [dataURL, dataURL2];
