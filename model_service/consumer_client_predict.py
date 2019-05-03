@@ -1,7 +1,10 @@
+# coding:utf-8
+
 from confluent_kafka import Consumer, KafkaError
 from confluent_kafka import Producer
 import json
 import numpy as np
+
 
 # def produce_message2(data):
 #   p = Producer({'bootstrap.servers': 'localhost:9092'})
@@ -10,15 +13,14 @@ import numpy as np
 #   p.flush()
 
 class ConsumerClient:
-    
     def __init__(self):
 
         localhost = 'localhost'
         gcp_host = '35.230.175.86'
         self.c = Consumer({
-            'bootstrap.servers': localhost +':9092', # GCP instance running Kafka server
+            'bootstrap.servers': localhost +':9092',
             'group.id': 'mygroup',
-            'auto.offset.reset': 'earliest'
+            'auto.offset.reset': 'latest'
         })
         self.c.subscribe(['TutorialTopic'])
 
@@ -32,12 +34,10 @@ class ConsumerClient:
             if msg.error():
                 print("Consumer error: {}".format(msg.error()))
                 continue
-            
+
             else:
                 print('[Consume] Kafka message: {}'.format(msg.value()))
                 return msg.value()
-            
 
     def __del__(self):
         self.c.close()
-    

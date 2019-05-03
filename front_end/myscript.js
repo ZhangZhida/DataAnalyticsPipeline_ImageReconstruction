@@ -1,5 +1,3 @@
-
-
 var imageLoader = document.getElementById('imageLoader');
 imageLoader.addEventListener('change', handleImage, false);
 var canvas_upload = document.getElementById('upload_pic');
@@ -101,8 +99,42 @@ function geturl() {
     canvas2.height = canvas1.height
 	var dataURL2 = canvas2.toDataURL();
 	console.log(dataURL2);
+    return [dataURL, dataURL2];
 
+}
 
+function send_post_to_server() {
+    var urls = geturl()
+    var dataURL = urls[0]
+    var dataURL2 = urls[1]
+    console.log('dataUrl', dataURL);
+    console.log('dataUrl2', dataURL2);
+
+    const xhttp = new XMLHttpRequest();
+    
+    const url = "http://localhost:7777/upload";
+    xhttp.open("POST", url);
+    // http.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // xhttp.setRequestHeader("Access-Control-Allow-Headers", '*');
+    // xhttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    // xhttp.setRequestHeader('Content-type', 'text/html')
+    // xhttp.setRequestHeader('Access-Control-Allow-Methods', "POST, GET, OPTIONS")
+
+    data = {
+        "original": dataURL,
+        "mask": dataURL2
+    }
+
+    data_json = JSON.stringify(data)
+    console.log('data = ', data_json)
+
+    xhttp.send(data_json);
+
+    
+
+    xhttp.onreadystatechange = (e) => {
+        console.log(xhttp.responseText)
+    }
 }
 
 
