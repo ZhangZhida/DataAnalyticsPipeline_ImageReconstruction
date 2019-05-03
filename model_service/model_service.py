@@ -15,7 +15,6 @@ def construct_image_url(bucketName, outputName):
     return "https://s3.amazonaws.com/{bucketName}/{outputName}".format(
         bucketName=bucketName, outputName=outputName)
 
-@tornado.gen.coroutine
 def predict(image_url,mask_url):
 
     # first we need to download it

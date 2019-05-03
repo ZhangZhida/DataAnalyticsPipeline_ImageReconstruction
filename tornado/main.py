@@ -53,7 +53,7 @@ class UploadHandler(RequestHandler):
         if image is not None:
             s = "image received"
             print(s)
-            self.write(s)
+            #self.write(s)
             # produce_message(message)
             message = {}
 
@@ -81,7 +81,8 @@ class UploadHandler(RequestHandler):
         result_url = predict(image_url,mask_url)
         # self.render("../template/result.html",result = result_url)
         print("=========result_url=========")
-        print(result_url)
+        print(str(result_url))
+        self.write(str(result_url))
         # return to frontend
 
 
