@@ -1,6 +1,7 @@
 from tornado.web import Application
 from tornado.web import RequestHandler
 from tornado.ioloop import IOLoop
+from tornado.escape import json_decode
 import json
 import sys
 import os
@@ -44,38 +45,34 @@ class UploadHandler(RequestHandler):
     def post(self):
         print(self.request.body)
         data = json.loads(self.request.body)
+        # data = json_decode(self.request.body)
         
-        print("request = ", data)
-        print(type(data))
-        print(data.keys())
-        # image = data['original']
-        # mask = self.request.body['mask']
-        image_url = "https://s3.amazonaws.com/lehuitest/fake_image.jpg"
-        mask_url = "https://s3.amazonaws.com/lehuitest/fake_mask.jpg"
+                
+        mask = data['mask']
+        image = data['original']
 
-        # if image is not None:
-        #     s = "image received"
-        #     print(s)
-        #     self.write(s)
-        #     # produce_message(message)
-        #     message = {}
-        #
-        #     # upload image to s3 and return output url in s3
-        #     # image_url = image_upload(image)
-        #     # mask_url = image_upload(mask)
-        #
-        #     user_id = 'liulehui'
-        #
-        #     # construct message
-        #     message["image_url"] = image_url
-        #     message["user_id"] = user_id
-        #     message_json = json.dumps(message)
-        #
-        #
-        #     # Kafka producer produce message
-        #     if image_url is not None:
-        #         upload_produce_message(message_json)
+        if image is not None:
+            s = "image received"
+            print(s)
+            self.write(s)
+            # produce_message(message)
+            message = {}
+
+            # upload image to s3 and return output url in s3
+            image_url = image_upload(image, 'test_image.png')
+            mask_url = image_upload(mask, 'test_mask.png')
+
+            user_id = 'liulehui'
             
+            # construct message
+            message["image_url"] = image_url
+            message["user_id"] = user_id
+            message_json = json.dumps(message)
+
+
+            # Kafka producer produce message
+            if image_url is not None:
+                upload_produce_message(message_json)            
         # else:
         #     s = "image not received"
         #     self.write(s)
