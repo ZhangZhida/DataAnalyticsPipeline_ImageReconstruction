@@ -114,8 +114,8 @@ function send_post_to_server() {
     var urls = geturl()
     var dataURL = urls[0]
     var dataURL2 = urls[1]
-    console.log('dataUrl', dataURL);
-    console.log('dataUrl2', dataURL2);
+    // console.log('dataUrl', dataURL);
+    // console.log('dataUrl2', dataURL2);
 
     const xhttp = new XMLHttpRequest();
     

@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import logging
 import base64
+from PIL import Image
 
 def get_image_from_dataurl(dataUrl, save_filename):
 	# start = dataUrl.find(";base64")
@@ -12,8 +13,21 @@ def get_image_from_dataurl(dataUrl, save_filename):
 	# 	img_str = dataUrl[start + 7:]
 	# 	base64.decode(img_str, img)
 
-	with open(save_filename, 'wb') as f:
+	if save_filename[-4:] != '.jpg':
+		print("save_filename MUST be *.jpg!!!")
+		returns
+	
+	tmp_png_save_filename = save_filename[:-4] + '.png'
+
+	# first save as png file
+	with open(tmp_png_save_filename, 'wb') as f:
 		f.write(base64.decodestring(dataUrl.split(',')[1].encode()))
+
+	# convert png to jpg file
+	im = Image.open(tmp_png_save_filename)
+	im.save(save_filename)
+
+	
 	# return img
 
 
