@@ -2,9 +2,14 @@ from tornado.web import Application
 from tornado.web import RequestHandler
 from tornado.ioloop import IOLoop
 import json
+import sys
+import os
 from producer_upload import upload_produce_message
 from image_upload import image_upload
-# from model_service.model_service import predict
+o_path = os.getcwd()
+print(o_path)
+sys.path.append('/home/ubuntu/DataAnalyticsPipeline_ImageRepair/model_service/')
+from model_service import predict
 
 class ChartHandler(RequestHandler):
     pass
@@ -37,43 +42,49 @@ class UploadHandler(RequestHandler):
         self.finish()
 
     def post(self):
+        print(self.request.body)
         data = json.loads(self.request.body)
         
         print("request = ", data)
-        image = self.request.body['original']
-        mask = self.request.body['mask']
+        print(type(data))
+        print(data.keys())
+        # image = data['original']
+        # mask = self.request.body['mask']
+        image_url = "https://s3.amazonaws.com/lehuitest/fake_image.jpg"
+        mask_url = "https://s3.amazonaws.com/lehuitest/fake_mask.jpg"
 
-        if image is not None:
-            s = "image received"
-            print(s)
-            self.write(s)
-            # produce_message(message)
-            message = {}
-
-            # upload image to s3 and return output url in s3
-            image_url = image_upload(image)
-            mask_url = image_upload(mask)
-
-            user_id = 'liulehui'
+        # if image is not None:
+        #     s = "image received"
+        #     print(s)
+        #     self.write(s)
+        #     # produce_message(message)
+        #     message = {}
+        #
+        #     # upload image to s3 and return output url in s3
+        #     # image_url = image_upload(image)
+        #     # mask_url = image_upload(mask)
+        #
+        #     user_id = 'liulehui'
+        #
+        #     # construct message
+        #     message["image_url"] = image_url
+        #     message["user_id"] = user_id
+        #     message_json = json.dumps(message)
+        #
+        #
+        #     # Kafka producer produce message
+        #     if image_url is not None:
+        #         upload_produce_message(message_json)
             
-            # construct message
-            message["image_url"] = image_url
-            message["user_id"] = user_id
-            message_json = json.dumps(message)
-
-
-            # Kafka producer produce message
-            if image_url is not None:
-                upload_produce_message(message_json)
-            
-        else:
-            s = "image not received"
-            self.write(s)
-            print(s)
+        # else:
+        #     s = "image not received"
+        #     self.write(s)
+        #     print(s)
 
         result_url = predict(image_url,mask_url)
         # self.render("../template/result.html",result = result_url)
-
+        print("=========result_url=========")
+        print(result_url)
         # return to frontend
 
 
