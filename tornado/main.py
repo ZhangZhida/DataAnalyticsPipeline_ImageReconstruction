@@ -43,7 +43,7 @@ class UploadHandler(RequestHandler):
         self.finish()
 
     def post(self):
-        print(self.request.body)
+        #print(self.request.body)
         data = json.loads(self.request.body)
         # data = json_decode(self.request.body)
 
