@@ -119,7 +119,7 @@ function send_post_to_server() {
 
     const xhttp = new XMLHttpRequest();
     
-    const url = "http://54.214.207.179:7777/upload";
+    const url = "http://172.31.41.84:7777/upload";
     xhttp.open("POST", url);
     // http.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     // xhttp.setRequestHeader("Access-Control-Allow-Headers", '*');
