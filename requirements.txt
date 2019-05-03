@@ -6,4 +6,5 @@ opencv-python>=4.1.0.25
 scipy>=1.2.1
 tensorflow>=1.13.1
 confluent-kafka==1.0.0
+mysqlclient >= 1.4.2
 
