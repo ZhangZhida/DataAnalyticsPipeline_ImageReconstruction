@@ -58,9 +58,9 @@ class UploadHandler(RequestHandler):
             message = {}
 
             # upload image to s3 and return output url in s3
-            mask_url = image_upload(mask, 'test_mask.jpg')
-            image_url = image_upload(image, 'test_image.jpg')
             
+            image_url = image_upload(image, 'test_image.jpg', img_type='jpg')
+            mask_url = image_upload(mask, 'test_mask.png', img_type='png')
 
             user_id = 'liulehui'
             

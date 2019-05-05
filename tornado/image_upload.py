@@ -5,7 +5,7 @@ import logging
 import base64
 from PIL import Image
 
-def get_image_from_dataurl(dataUrl, save_filename):
+def get_image_from_dataurl(dataUrl, save_filename, img_type):
 	# start = dataUrl.find(";base64")
 	# img_str = None
 	img = None
@@ -13,26 +13,31 @@ def get_image_from_dataurl(dataUrl, save_filename):
 	# 	img_str = dataUrl[start + 7:]
 	# 	base64.decode(img_str, img)
 
-	if save_filename[-4:] != '.jpg':
-		print("save_filename MUST be *.jpg!!!")
-		returns
-	
-	tmp_png_save_filename = save_filename[:-4] + '.png'
+	if img_type == 'jpg':
+		if save_filename[-4:] != '.jpg':
+			print("save_filename MUST be *.jpg!!!")
+			returns
+		
+		tmp_png_save_filename = save_filename[:-4] + '.png'
 
-	# first save as png file
-	with open(tmp_png_save_filename, 'wb') as f:
-		f.write(base64.decodestring(dataUrl.split(',')[1].encode()))
+		# first save as png file
+		with open(tmp_png_save_filename, 'wb') as f:
+			f.write(base64.decodestring(dataUrl.split(',')[1].encode()))
 
-	# convert png to jpg file
-	# im = Image.open(tmp_png_save_filename)
-	
-	png = Image.open(tmp_png_save_filename).convert('RGBA')
-	background = Image.new('RGBA', png.size, (255,255,255))
+		# convert png to jpg file
+		# im = Image.open(tmp_png_save_filename)
+		
+		png = Image.open(tmp_png_save_filename).convert('RGBA')
+		background = Image.new('RGBA', png.size, (255,255,255))
 
-	alpha_composite = Image.alpha_composite(background, png)
-	alpha_composite = alpha_composite.convert("RGB")
-	alpha_composite.save(save_filename, 'JPEG', quality=100)
-
+		alpha_composite = Image.alpha_composite(background, png)
+		alpha_composite = alpha_composite.convert("RGB")
+		alpha_composite.save(save_filename, 'JPEG', quality=100)
+	elif img_type == 'png':
+		with open(save_filename, 'wb') as f:
+			f.write(base64.decodestring(dataUrl.split(',')[1].encode()))
+	else:
+		print('image type has to be .jpg or .png!!!')
 
 	# im = im.convert('RGB')
 	# im.save(save_filename)
@@ -41,13 +46,13 @@ def get_image_from_dataurl(dataUrl, save_filename):
 	# return img
 
 
-def image_upload(dataUrl, save_filename):
+def image_upload(dataUrl, save_filename, img_type):
 
     # decode (base64) the string to image
     # nparr = np.fromstring(img_str, np.uint8)
     # img2 = cv2.imdecode(nparr, cv2.CV_32FC4)
     
-	get_image_from_dataurl(dataUrl, save_filename)
+	get_image_from_dataurl(dataUrl, save_filename, img_type)
 
     # save image file to local computer
 	# save_filename = 'test_image.png'
