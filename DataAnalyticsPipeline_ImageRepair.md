@@ -10,6 +10,9 @@ Zhida Zhang ()
 [Jira](https://toydemoproject.atlassian.net/jira/software/projects/IM/boards/13)  
 
 ## MVP Architecture
+Description:  
+We proposed a Project: Image Reconstruction Web Application. In this product MVP, we provide the user to remove an obstruction on a input picture, say, remove the sunglasses of a selfie.
+
 ![MVP architecture](img/)
 ## Environment preparation
 
