@@ -12,12 +12,8 @@ print(o_path)
 sys.path.append('/home/ubuntu/DataAnalyticsPipeline_ImageRepair/model_service/')
 from model_service import predict
 
-class ChartHandler(RequestHandler):
-    pass
 
-class RemoveHandler(RequestHandler):
-    pass
-class UploadHandler(RequestHandler):
+class ReconstructHandler(RequestHandler):
     
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -73,10 +69,10 @@ class UploadHandler(RequestHandler):
             # Kafka producer produce message
             if image_url is not None:
                 upload_produce_message(message_json)            
-        # else:
-        #     s = "image not received"
-        #     self.write(s)
-        #     print(s)
+        else:
+            s = "image not received"
+            self.write(s)
+            print(s)
 
         result_url = predict(image_url,mask_url)
         # self.render("../template/result.html",result = result_url)
@@ -88,9 +84,7 @@ class UploadHandler(RequestHandler):
 
 if __name__ == "__main__":
     handler_mapping = [
-                       (r'/remove$', RemoveHandler),
-                       (r'/upload$', UploadHandler),
-                       (r'/chart$', ChartHandler)
+                       (r'/reconstruct$', ReconstructHandler)
                       ]
     application = Application(handler_mapping)
     application.listen(7777)

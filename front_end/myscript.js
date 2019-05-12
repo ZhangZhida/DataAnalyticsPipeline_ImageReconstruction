@@ -120,8 +120,8 @@ function send_post_to_server() {
 
     const xhttp = new XMLHttpRequest();
     
-    const url = "http://34.210.82.63:7777/upload";
-    // const url = "http://localhost:7777/upload";
+    const url = "http://34.210.82.63:7777/reconstruct";
+    // const url = "http://localhost:7777/reconstruct";
     xhttp.open("POST", url);
     // http.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     // xhttp.setRequestHeader("Access-Control-Allow-Headers", '*');
