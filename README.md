@@ -1,4 +1,5 @@
-#DataAnalyticsPipeline_ImageRepair
+# DataAnalyticsPipeline_ImageRepair
+
 **Description**: 
 
 We proposed a Project: Image Reconstruction Web Application. In this MVP product, we provide the user to remove and reconstruct a certain part of the input picture, say, remove the sunglasses of a selfie. This web application takes power of partialconv net proposed by NVIDIA(https://github.com/NVIDIA/partialconv). The model service of this project is in another repository by our group member Han Ding: https://github.com/DH-Diego/Homework4995.009DAP/tree/master/final
@@ -35,6 +36,7 @@ You will also need to set up deep learning environment for the backend server. W
 3. Install Kafka on your server, we use GCP (35.238.175.86) as the Kafka server.
    * You can change your own server ip here.
 ![kafka server](img/kafkaserver.png)
+![kafka server](img/kafkaserver2.png)
 
    * Start the kafka service on your server. Then, create a topic named "TutorialTopic" for our project. This Kafka topic will be used by our producer and consumers. You could follow this [office guide] (https://kafka.apache.org/quickstart).
 
