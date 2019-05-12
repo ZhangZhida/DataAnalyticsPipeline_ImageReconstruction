@@ -38,7 +38,7 @@ You will also need to set up deep learning environment for the backend server. W
 ![kafka server](img/kafkaserver.png)
 ![kafka server](img/kafkaserver2.png)
 
-   * Start the kafka service on your server. Then, create a topic named "TutorialTopic" for our project. This Kafka topic will be used by our producer and consumers. You could follow this [office guide] (https://kafka.apache.org/quickstart).
+   * Start the kafka service on your server. Then, create (if not exists) a topic named "TutorialTopic" for our project. This Kafka topic will be used by our producer and consumers. You could follow this [office guide] (https://kafka.apache.org/quickstart).
 
 4. Config and start MySQL database service. Firstly, copy config_example.ini to config.ini. Then set the MySQL configuration in the config.ini file. Since our MySQL db is lively served on AWS, we don't need explicitly start it.  
 
