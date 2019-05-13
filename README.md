@@ -57,9 +57,8 @@ You will also need to set up deep learning environment for the backend server. W
 ![frontend_black](img/frontend_blank.png)
 
 5. Click on upload image and brush the part you don't want. When your are set, click Go! 
-
-![upload](img/frontend1.png)  
-![brush](img/frontend2.png)
+![upload](img/frontend2.png)  
+![brush](img/frontend2-2.png)
 
 6. Then the backend start running. As you can see below:
    * tornado service (on AWS) process the request, produce the event, and run model
